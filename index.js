@@ -34,7 +34,6 @@ const collada = {
     },
 
     dependencies: (path) => {
-        const nodes = config.dependencies.nodes;
         let deps = [];
         const dirname = Path.dirname(path);
 
@@ -47,6 +46,15 @@ const collada = {
 
         return collada.parse(path)
             .then(xml_dom => {
+                const header_node = xml_dom.getElementsByTagName("COLLADA")[0];
+                const version = header_node
+                    .getAttribute("version")
+                    // Only major and minor versions
+                    .slice(0,3); 
+                if (!version && !~Object.keys(config).indexOf(version)) {
+                    throw "dependencies(): Not suppported version:" + version;
+                }
+                const nodes = config[version].dependencies.nodes;
                 Object.keys(nodes)
                     .forEach(tag_name => {
                         const elements = xml_dom.getElementsByTagName(tag_name);
