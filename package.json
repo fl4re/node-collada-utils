@@ -1,5 +1,5 @@
 {
-  "name": "collada-utils",
+  "name": "@sb/collada-utils",
   "version": "1.0.0",
   "description": "nodejs utilities dealing with Collada documents",
   "main": "index.js",
