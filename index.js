@@ -1,7 +1,8 @@
 'use strict';
 
-const promisify = require("./util/promisify");
+const promisify = require("./lib/promisify");
 const config = require('./config.json');
+const validator = require("./lib/DAEValidator");
 
 const fs = require("fs");
 const Path = require("path").posix;
@@ -75,7 +76,9 @@ const collada = {
                 deps = Array.from(new Set(deps));
                 return deps;
             });
-    }
+    },
+
+    validate: (path) => validator(path)
 
 };
 
