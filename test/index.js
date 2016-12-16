@@ -9,7 +9,7 @@ const collada = require("../index");
 const dirname = __dirname.replace(/\\/g, "/");
 const models_directory = Path.join(dirname, "models");
 const test_dae = Path.join(models_directory, "Sponza.DAE");
-const test_dae_2 = Path.join(models_directory, "Amahani.DAE");
+const test_dae_2 = Path.join(models_directory, "Amahani.dae");
 const test_dependencies = [ '/images/2_00_SKAP.JPG',
   '/images/4_01_STUB-bump_nrm.tga',
   '/images/3_01_STUB.JPG',
