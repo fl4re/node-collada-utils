@@ -30,7 +30,7 @@ const test_dependencies = [ '/images/2_00_SKAP.JPG',
 describe("Collada utilities", function () {
 
     it("#List dependencies of sponza example", function (done) {
-        this.timeout(1000);
+        this.timeout(5000);
         collada.dependencies(test_dae)
             .then(dependencies => {
                 should(test_dependencies).be.eql(dependencies);
@@ -49,6 +49,7 @@ describe("Collada utilities", function () {
     });
 
     it("#Validate amahani example", function (done) {
+        this.timeout(5000);
         collada.validate(test_dae_2).then(done).catch(done);
     });
 });

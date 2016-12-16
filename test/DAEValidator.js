@@ -12,14 +12,21 @@ const amahani_dae = Path.join(models_directory, "Amahani.dae");
 describe("Collada validator", function () {
     
     it("#Valid amahani example", function (done) {
+        this.timeout(5000);
         dAEValidator(amahani_dae).then(done).catch(done);
     });
 
     it("#Unvalid sponza example", function (done) {
+        this.timeout(5000);
         dAEValidator(sponza_dae).then(() => {
           done("Sponza shouldn't be valid!");
-        }).catch(() => {
-          done();
+        }).catch(err => {
+          let is_error = !err.toString(err).includes("FAILED.");
+          if (is_error) {
+            done(err);
+          } else {
+            done();
+          }
         });
     });
 
