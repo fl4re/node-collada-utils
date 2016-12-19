@@ -9,6 +9,7 @@ const collada = require("../index");
 const dirname = __dirname.replace(/\\/g, "/");
 const models_directory = Path.join(dirname, "models");
 const test_dae = Path.join(models_directory, "Sponza.DAE");
+const test_dae_2 = Path.join(models_directory, "Amahani.dae");
 const test_dependencies = [ '/images/2_00_SKAP.JPG',
   '/images/4_01_STUB-bump_nrm.tga',
   '/images/3_01_STUB.JPG',
@@ -27,22 +28,11 @@ const test_dependencies = [ '/images/2_00_SKAP.JPG',
   '/images/1_sp_luk-bump_nrm.tga' ].map(dep => Path.join(models_directory, dep));
 
 describe("Collada utilities", function () {
-    
-    it("#Parse sponza example", function (done) {
-        collada.parse(test_dae)
-            .then(xmldom => {
-                this.timeout(1000);
-                const elements = xmldom.getElementsByTagName("comments");
-                elements.length.should.equal(1);
-                elements[0].childNodes[0].nodeValue.should.equal("test");
-                done();
-            });
-    });
 
     it("#List dependencies of sponza example", function (done) {
+        this.timeout(5000);
         collada.dependencies(test_dae)
             .then(dependencies => {
-                this.timeout(1000);
                 should(test_dependencies).be.eql(dependencies);
                 done();
             });
@@ -56,5 +46,10 @@ describe("Collada utilities", function () {
                     .map(file => collada.dependencies(Path.join(models_directory, file)))
             ).then(() => done()).catch(done)   
         );
+    });
+
+    it("#Validate amahani example", function (done) {
+        this.timeout(5000);
+        collada.validate(test_dae_2).then(done).catch(done);
     });
 });
