@@ -1,6 +1,6 @@
 {
   "name": "@sb/collada-utils",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "nodejs utilities dealing with Collada documents",
   "main": "index.js",
   "scripts": {
@@ -23,11 +23,11 @@
   },
   "homepage": "https://github.com/fl4re/collada-nodejs-util#readme",
   "devDependencies": {
-    "cmake-js": "^3.3.1",
     "mocha": "^3.1.2",
     "should": "^11.1.1"
   },
   "dependencies": {
+    "cmake-js": "^3.3.1",
     "is-url": "^1.2.2",
     "is-valid-path": "^0.1.1",
     "mocha": "^3.1.2",
