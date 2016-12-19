@@ -35,7 +35,6 @@ collada.validate(model_path)
 ### Contact
 
 Maxime Helen - maxime.helen@starbreeze.com
-
 David Gaya - david.gaya@starbreeze.com
 
 ### Licence
