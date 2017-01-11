@@ -3,6 +3,7 @@
 const fs = require("fs");
 const Path = require("path").posix;
 const should = require("should");
+const WebSocket = require('faye-websocket');
 
 const collada = require("../index");
 
@@ -27,7 +28,7 @@ const test_dependencies = [ '/images/2_00_SKAP.JPG',
   '/images/10_reljef-bump_nrm.tga',
   '/images/1_sp_luk-bump_nrm.tga' ].map(dep => Path.join(models_directory, dep));
 
-describe("Collada utilities", function () {
+describe("Collada utils", function () {
 
     it("#List dependencies of sponza example", function (done) {
         this.timeout(5000);
@@ -52,4 +53,107 @@ describe("Collada utilities", function () {
         this.timeout(5000);
         collada.validate(test_dae_2).then(done).catch(done);
     });
+
+});
+
+var client;
+var port = 9229;
+
+describe("Websocket server", function () {
+    
+    before("Create collada server and client", function(done) {
+        collada.start_ws_server(port);
+        client = new WebSocket.Client("ws://127.0.0.1:" + port);
+        client.on("open", () => { done(); });
+    });
+
+    it("#List dependencies", function (done) {
+        this.timeout(2000);
+        const id = 1;
+        const cb = event => {
+          const msg = JSON.parse(event.data);
+          if (msg.event === "callback") {
+            msg.id.should.equal(1);
+            should.exist(msg.data);
+            client.removeListener("message", cb);
+            done();
+          }
+        };
+        client.on("message", cb);
+        client.send(JSON.stringify({event: "dependencies", path: test_dae, id: id}));
+    });
+
+    it("#Concurrent list dependency calls", function (done) {
+        this.timeout(10000);
+        let count = 0;
+        const cb = event => {
+          const msg = JSON.parse(event.data);
+          if (msg.event === "callback") {
+            should.exist(msg.data);
+            count ++;
+            if (count === 10) {
+              client.removeListener("message", cb);
+              done();
+            }
+          }
+        };
+        client.on("message", cb);
+        for (let i = 0; i < 10; i++) {
+          client.send(JSON.stringify({event: "dependencies", path: test_dae, id: i}));
+        }
+    });
+
+    it("#Validate amahani example", function (done) {
+        this.timeout(2000);
+        const id = 1;
+        const cb = event => {
+          const msg = JSON.parse(event.data);
+          if (msg.event === "callback") {
+            msg.id.should.equal(1);
+            should.not.exist(msg.err);
+            client.removeListener("message", cb);
+            done();
+          }
+        };
+        client.on("message", cb);
+        client.send(JSON.stringify({event: "validate", path: test_dae_2, id: id}));
+    });
+
+    it("#Not validate Sponza example", function (done) {
+        this.timeout(2000);
+        const id = 1;
+        const cb = event => {
+          const msg = JSON.parse(event.data);
+          if (msg.event === "callback") {
+            msg.id.should.equal(1);
+            should.exist(msg.err);
+            client.removeListener("message", cb);
+            done();
+          }
+        };
+        client.on("message", cb);
+        client.send(JSON.stringify({event: "validate", path: test_dae, id: id}));
+    });
+
+
+    it("#Concurrent validate calls", function (done) {
+        this.timeout(10000);
+        let count = 0;
+        const cb = event => {
+          const msg = JSON.parse(event.data);
+          if (msg.event === "callback") {
+            should.not.exist(msg.err);
+            count ++;
+            if (count === 30) {
+              client.removeListener("message", cb);
+              done();
+            }
+          }
+        };
+        client.on("message", cb);
+        for (let i = 0; i < 30; i++) {
+          client.send(JSON.stringify({event: "validate", path: test_dae_2, id: i}));
+        }
+    });
+    
 });
