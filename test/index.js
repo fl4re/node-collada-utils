@@ -10,6 +10,7 @@ const dirname = __dirname.replace(/\\/g, "/");
 const models_directory = Path.join(dirname, "models");
 const test_dae = Path.join(models_directory, "Sponza.DAE");
 const test_dae_2 = Path.join(models_directory, "Amahani.dae");
+const test_dae_3 = Path.join(models_directory, "bad_duck.dae");
 const test_dependencies = [ '/images/2_00_SKAP.JPG',
   '/images/4_01_STUB-bump_nrm.tga',
   '/images/3_01_STUB.JPG',
@@ -27,7 +28,7 @@ const test_dependencies = [ '/images/2_00_SKAP.JPG',
   '/images/10_reljef-bump_nrm.tga',
   '/images/1_sp_luk-bump_nrm.tga' ].map(dep => Path.join(models_directory, dep));
 
-describe("Collada utilities", function () {
+describe("Collada utils", function () {
 
     it("#List dependencies of sponza example", function (done) {
         this.timeout(5000);
@@ -39,10 +40,10 @@ describe("Collada utilities", function () {
     });
 
     it("#List all model dependencies in test directory", function (done) {
-        this.timeout(10000);
+        this.timeout(5000);
         fs.readdir(models_directory, (err, files) => Promise.all(
                 files
-                    .filter(file => Path.extname(file) === ".dae" || Path.extname(file) === ".DAE")
+                    .filter(file => !~file.indexOf("bad_duck"))
                     .map(file => collada.dependencies(Path.join(models_directory, file)))
             ).then(() => done()).catch(done)   
         );
@@ -50,6 +51,17 @@ describe("Collada utilities", function () {
 
     it("#Validate amahani example", function (done) {
         this.timeout(5000);
-        collada.validate(test_dae_2).then(done).catch(done);
+        collada.validate(test_dae_2).then(() => { done(); }).catch(done);
     });
+
+    it("#Fail to validate bad duck example", function (done) {
+        this.timeout(5000);
+        collada.parse(test_dae_3)
+          .then(() => {
+            done("Shouldn't pass!");
+          }).catch(() => {
+            done();
+          });
+    });
+
 });
