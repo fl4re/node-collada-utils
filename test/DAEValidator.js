@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 //const should = require("should");
 const Path = require("path").posix;
 
@@ -30,4 +30,4 @@ describe("Collada validator", function () {
         });
     });
 
-});
+});*/

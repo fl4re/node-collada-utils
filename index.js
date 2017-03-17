@@ -2,7 +2,7 @@
 
 const promisify = require("./lib/promisify");
 const config = require('./config.json');
-const validator = require("./lib/DAEValidator");
+/*const validator = require("./lib/DAEValidator");*/
 
 const fs = require("fs");
 const Path = require("path").posix;
@@ -29,12 +29,20 @@ const sanitize_path = (base, path) => {
 
 const collada = {
 
-    parse: (path) => {
-        return promisify(fs.readFile)(path, 'utf8')
-            .then(content => new DOM_parser().parseFromString(content));
-    },
+    parse: path => promisify(fs.readFile)(path, 'utf8')
+            .then(content => new Promise((resolve, reject) => {
+                const options = { 
+                    locator: {},
+                    errorHandler: {
+                        error: reject,
+                        fatalError: reject
+                    }
+                };       
+                const collada = new DOM_parser(options).parseFromString(content);
+                resolve(collada);
+            })),
 
-    dependencies: (path) => {
+    dependencies: path => {
         let deps = [];
         const dirname = Path.dirname(path);
 
@@ -51,7 +59,7 @@ const collada = {
                 const version = header_node
                     .getAttribute("version")
                     // Only major and minor versions
-                    .slice(0,3); 
+                    .slice(0,3);
                 if (!version && !~Object.keys(config).indexOf(version)) {
                     throw "dependencies(): Not suppported version:" + version;
                 }
@@ -78,7 +86,7 @@ const collada = {
             });
     },
 
-    validate: (path) => validator(path)
+    validate: path => collada.parse(path)
 
 };
 
