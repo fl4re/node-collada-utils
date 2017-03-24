@@ -3,6 +3,9 @@
         "main_dependency" : {
             "source-data": {
                 "value": true
+            },
+            "source_data": {
+                "value": true
             }
         },
         "dependency" : {
@@ -68,6 +71,9 @@
     "1.5": {
         "main_dependency" : {
             "source-data": {
+                "value": true
+            },
+            "source_data": {
                 "value": true
             }
         },

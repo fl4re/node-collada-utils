@@ -96,6 +96,22 @@ const collada = {
             });
     },
 
+    main_dependency: path => collada.parse(path)
+        .then(xml_dom => {
+            const header_node = xml_dom.getElementsByTagName("COLLADA")[0];
+            const version = get_version(header_node);
+            const is_version_supported = ~Object.keys(config).indexOf(version);
+            if (!version || !is_version_supported) {
+                throw "dependencies(): Not suppported version:" + version;
+            }
+            const node_description = config[version].main_dependency;
+            const res = parse_document_from_config(node_description, xml_dom);
+            if (res.length > 1) {
+                throw "Conflict, several main dependency nodes are found in the document";
+            }
+            return res[0];
+        }),
+
     validate: path => collada.parse(path)
 
 };

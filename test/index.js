@@ -49,6 +49,15 @@ describe("Collada utils", function () {
         );
     });
 
+    it("#Retrieve Sponza main dependency", function (done) {
+        this.timeout(5000);
+        collada.main_dependency(test_dae)
+          .then(res => {
+            should(res).be.eql("file:///D:/Boris/dabrovic-sponza/sponza.max");
+            done();
+          }).catch(done)   
+    });
+
     it("#Validate amahani example", function (done) {
         this.timeout(5000);
         collada.validate(test_dae_2).then(() => { done(); }).catch(done);
