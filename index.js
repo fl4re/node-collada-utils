@@ -27,6 +27,34 @@ const sanitize_path = (base, path) => {
     return path;
 };
 
+const parse_document_from_config = (config_node_descriptions, xml_dom) => {
+    let res = [];
+    Object.keys(config_node_descriptions)
+        .forEach(tag_name => {
+            const elements = xml_dom.getElementsByTagName(tag_name);
+            for (let i=0; i<elements.length; i++) {
+                const element = elements[i];
+                const node = config_node_descriptions[tag_name];
+                const first_child = element.childNodes[0];
+                // if the dep is the node value
+                if (node.value && first_child) {
+                    res.push(first_child.nodeValue);
+                }
+                // if the dep is defined by one attribute
+                if (node.attribute) {
+                    for (let i=0; i<node.attribute.length; i++) {
+                        let attribute = node.attribute[i];
+                        res.push(element.getAttribute(attribute));
+                    }
+                }
+            }
+        });
+    return res;
+};
+
+// Slice only major and minor versions
+const get_version = header_node =>  header_node.getAttribute("version").slice(0,3);
+
 const collada = {
 
     parse: path => promisify(fs.readFile)(path, 'utf8')
@@ -56,32 +84,14 @@ const collada = {
         return collada.parse(path)
             .then(xml_dom => {
                 const header_node = xml_dom.getElementsByTagName("COLLADA")[0];
-                const version = header_node
-                    .getAttribute("version")
-                    // Only major and minor versions
-                    .slice(0,3);
-                if (!version && !~Object.keys(config).indexOf(version)) {
+                const version = get_version(header_node);
+                const is_version_supported = ~Object.keys(config).indexOf(version);
+                if (!version || !is_version_supported) {
                     throw "dependencies(): Not suppported version:" + version;
                 }
-                const nodes = config[version].dependencies.nodes;
-                Object.keys(nodes)
-                    .forEach(tag_name => {
-                        const elements = xml_dom.getElementsByTagName(tag_name);
-                        for (let i=0; i<elements.length; i++) {
-                            const element = elements[i];
-                            const node = nodes[tag_name];
-                            if (node.value && element.childNodes[0]) {
-                                store_dep(element.childNodes[0].nodeValue);
-                            }
-                            if (node.attributes) {
-                                for (let i=0; i<node.attributes.length; i++) {
-                                    let attribute = node.attributes[i];
-                                    store_dep(element.getAttribute(attribute));
-                                }
-                            }
-                        }
-                    });
-                deps = Array.from(new Set(deps));
+                const node_descriptions = config[version].dependency;
+                parse_document_from_config(node_descriptions, xml_dom).forEach(store_dep);
+                deps = Array.from(new Set(deps)); //make the array unique after sanitizing
                 return deps;
             });
     },
