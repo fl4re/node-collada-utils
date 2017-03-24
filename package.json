@@ -1,6 +1,6 @@
 {
   "name": "@sb/collada-utils",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "nodejs utilities dealing with Collada documents",
   "main": "index.js",
   "scripts": {
