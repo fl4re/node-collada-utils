@@ -1,139 +1,145 @@
 {
     "1.4": {
-        "dependencies" : {
-            "nodes" : {
-                "instance_animation" : {
-                    "attributes": ["url"]
-                },
-                "instance_camera" : {
-                    "attributes": ["url"]
-                },
-                "instance_controller" : {
-                    "attributes": ["url"]
-                },
-                "instance_geometry" : {
-                    "attributes": ["url"]
-                },
-                "instance_light" : {
-                    "attributes": ["url"]
-                },
-                "instance_visual_scene" : {
-                    "attributes": ["url"]
-                },
-                "instance_physics_material" : {
-                    "attributes": ["url"]
-                },
-                "instance_physics_model" : {
-                    "attributes": ["url"]
-                },
-                "instance_physics_scene" : {
-                    "attributes": ["url"]
-                },
-                "instance_effect" : {
-                    "attributes": ["url"]
-                },
-                "instance_image" : {
-                    "attributes": ["url"]
-                },
-                "include" : {
-                    "attributes": ["url"]
-                },
-                "accessor" : {
-                    "attributes": ["ref"]
-                },
-                "instance_rigid_body" : {
-                    "attributes": ["target"]
-                },
-                "instance_node" : {
-                    "attributes": ["url", "proxy"]
-                },
-                "instance_material" : {
-                    "attributes": ["url", "target"]
-                },
-                "init_from" : {
-                    "value": true
-                },
-                "string" : {
-                    "value": true
-                },
-                "newparam" : {
-                    "value": true
-                }
+        "main_dependency" : {
+            "source-data": {
+                "value": true
+            }
+        },
+        "dependency" : {
+            "instance_animation" : {
+                "attribute": ["url"]
+            },
+            "instance_camera" : {
+                "attribute": ["url"]
+            },
+            "instance_controller" : {
+                "attribute": ["url"]
+            },
+            "instance_geometry" : {
+                "attribute": ["url"]
+            },
+            "instance_light" : {
+                "attribute": ["url"]
+            },
+            "instance_visual_scene" : {
+                "attribute": ["url"]
+            },
+            "instance_physics_material" : {
+                "attribute": ["url"]
+            },
+            "instance_physics_model" : {
+                "attribute": ["url"]
+            },
+            "instance_physics_scene" : {
+                "attribute": ["url"]
+            },
+            "instance_effect" : {
+                "attribute": ["url"]
+            },
+            "instance_image" : {
+                "attribute": ["url"]
+            },
+            "include" : {
+                "attribute": ["url"]
+            },
+            "accessor" : {
+                "attribute": ["ref"]
+            },
+            "instance_rigid_body" : {
+                "attribute": ["target"]
+            },
+            "instance_node" : {
+                "attribute": ["url", "proxy"]
+            },
+            "instance_material" : {
+                "attribute": ["url", "target"]
+            },
+            "init_from" : {
+                "value": true
+            },
+            "string" : {
+                "value": true
+            },
+            "newparam" : {
+                "value": true
             }
         }
     },
     "1.5": {
-        "dependencies" : {
-            "nodes" : {
-                "instance_animation" : {
-                    "attributes": ["url"]
-                },
-                "instance_camera" : {
-                    "attributes": ["url"]
-                },
-                "instance_controller" : {
-                    "attributes": ["url"]
-                },
-                "instance_formula" : {
-                    "attributes": ["url"]
-                },
-                "instance_geometry" : {
-                    "attributes": ["url"]
-                },
-                "instance_light" : {
-                    "attributes": ["url"]
-                },
-                "instance_force_field" : {
-                    "attributes": ["url"]
-                },
-                "instance_visual_scene" : {
-                    "attributes": ["url"]
-                },
-                "instance_physics_material" : {
-                    "attributes": ["url"]
-                },
-                "instance_physics_model" : {
-                    "attributes": ["url"]
-                },
-                "instance_physics_scene" : {
-                    "attributes": ["url"]
-                },
-                "instance_effect" : {
-                    "attributes": ["url"]
-                },
-                "instance_image" : {
-                    "attributes": ["url"]
-                },
-                "instance_kinematics_model" : {
-                    "attributes": ["url"]
-                },
-                "instance_kinematics_scene" : {
-                    "attributes": ["url"]
-                },
-                "include" : {
-                    "attributes": ["url"]
-                },
-                "accessor" : {
-                    "attributes": ["ref"]
-                },
-                "instance_rigid_body" : {
-                    "attributes": ["target"]
-                },
-                "instance_node" : {
-                    "attributes": ["url", "proxy"]
-                },
-                "instance_material" : {
-                    "attributes": ["url", "target"]
-                },
-                "instance_joint" : {
-                    "attributes": ["url", "target"]
-                },
-                "init_from" : {
-                    "value": true
-                },
-                "ref" : {
-                    "value": true
-                }
+        "main_dependency" : {
+            "source-data": {
+                "value": true
+            }
+        },
+        "dependency" : {
+            "instance_animation" : {
+                "attribute": ["url"]
+            },
+            "instance_camera" : {
+                "attribute": ["url"]
+            },
+            "instance_controller" : {
+                "attribute": ["url"]
+            },
+            "instance_formula" : {
+                "attribute": ["url"]
+            },
+            "instance_geometry" : {
+                "attribute": ["url"]
+            },
+            "instance_light" : {
+                "attribute": ["url"]
+            },
+            "instance_force_field" : {
+                "attribute": ["url"]
+            },
+            "instance_visual_scene" : {
+                "attribute": ["url"]
+            },
+            "instance_physics_material" : {
+                "attribute": ["url"]
+            },
+            "instance_physics_model" : {
+                "attribute": ["url"]
+            },
+            "instance_physics_scene" : {
+                "attribute": ["url"]
+            },
+            "instance_effect" : {
+                "attribute": ["url"]
+            },
+            "instance_image" : {
+                "attribute": ["url"]
+            },
+            "instance_kinematics_model" : {
+                "attribute": ["url"]
+            },
+            "instance_kinematics_scene" : {
+                "attribute": ["url"]
+            },
+            "include" : {
+                "attribute": ["url"]
+            },
+            "accessor" : {
+                "attribute": ["ref"]
+            },
+            "instance_rigid_body" : {
+                "attribute": ["target"]
+            },
+            "instance_node" : {
+                "attribute": ["url", "proxy"]
+            },
+            "instance_material" : {
+                "attribute": ["url", "target"]
+            },
+            "instance_joint" : {
+                "attribute": ["url", "target"]
+            },
+            "init_from" : {
+                "value": true
+            },
+            "ref" : {
+                "value": true
             }
         }
     }
