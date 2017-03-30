@@ -43,7 +43,7 @@ describe("Collada utils", function () {
         this.timeout(5000);
         fs.readdir(models_directory, (err, files) => Promise.all(
                 files
-                    .filter(file => !~file.indexOf("bad_duck"))
+                    .filter(file => !~file.indexOf("bad_duck") && !~file.indexOf(".png"))
                     .map(file => collada.dependencies(Path.join(models_directory, file)))
             ).then(() => done()).catch(done)   
         );

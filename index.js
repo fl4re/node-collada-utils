@@ -2,7 +2,7 @@
 
 const promisify = require("./lib/promisify");
 const config = require('./config.json');
-/*const validator = require("./lib/DAEValidator");*/
+const validator = require("./lib/DAEValidator");
 
 const fs = require("fs");
 const Path = require("path").posix;
@@ -112,7 +112,7 @@ const collada = {
             return res[0];
         }),
 
-    validate: path => collada.parse(path)
+    validate: path => validator(path)
 
 };
 

@@ -16,8 +16,14 @@ Nodejs utilities dealing with Collada documents. This project is under developme
 
 ### Requirements
 
-We are compiling [OpenCOLLADA](https://github.com/KhronosGroup/OpenCOLLADA) project in order to handle the validation service. 
-There for you must have [CMake](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwik4ffjmoHRAhVBymMKHRnEBRgQFggcMAA&url=https%3A%2F%2Fcmake.org%2F&usg=AFQjCNHmSotyp0t2nhlfuGhrackSiKIPjw) installed on your machine for installing collada-utils.
+You must have install DAEValidator application and its validation schemas from [OpenCOLLADA](https://github.com/KhronosGroup/OpenCOLLADA) project in order to deploy this validation service.
+
+Your path environment variable must point to the installed DAEValidator binaries location.
+
+Required files are:
+- collada_schema_1_4_1
+- collada_schema_1_5
+- DAEValidator
 
 ### Install
 
