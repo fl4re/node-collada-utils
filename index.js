@@ -5,7 +5,7 @@ const config = require('./config.json');
 /*const validator = require("./lib/DAEValidator");*/
 
 const fs = require("fs");
-const Path = require("path").posix;
+const Path = require("path");
 
 const DOM_parser = require('xmldom').DOMParser;
 const valid_path = require('is-valid-path');
@@ -24,6 +24,7 @@ const sanitize_path = (base, path) => {
     if (!Path.isAbsolute(path)) {
         path = Path.join(base, path);
     }
+    path = path.replace(/\\/g, "/");
     return path;
 };
 
@@ -58,17 +59,17 @@ const get_version = header_node =>  header_node.getAttribute("version").slice(0,
 const collada = {
 
     parse: path => promisify(fs.readFile)(path, 'utf8')
-            .then(content => new Promise((resolve, reject) => {
-                const options = { 
-                    locator: {},
-                    errorHandler: {
-                        error: reject,
-                        fatalError: reject
-                    }
-                };       
-                const collada = new DOM_parser(options).parseFromString(content);
-                resolve(collada);
-            })),
+        .then(content => new Promise((resolve, reject) => {
+            const options = { 
+                locator: {},
+                errorHandler: {
+                    error: reject,
+                    fatalError: reject
+                }
+            };       
+            const collada = new DOM_parser(options).parseFromString(content);
+            resolve(collada);
+        })),
 
     dependencies: path => {
         let deps = [];
