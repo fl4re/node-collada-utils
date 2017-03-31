@@ -1,6 +1,5 @@
 install: 
   - git submodule update --init --recursive
   - npm install
-build: off
 test_script:
   - npm test
