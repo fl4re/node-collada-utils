@@ -1,6 +1,8 @@
-install: 
-  - git submodule update --init --recursive
+install:
   - npm install
+  - ps: Start-FileDownload 'https://s3-us-west-2.amazonaws.com/opencollada-pr-artifacts/opencollada_OCPR-505_OCTESTSPR-15_openCOLLADA-pc-pull-request_build_372.zip'
+  - 7z e opencollada_OCPR-505_OCTESTSPR-15_openCOLLADA-pc-pull-request_build_372.zip -aoa
+  - set PATH=%PATH%;%cd%\Release\bin
 build: off
 test_script:
   - npm test

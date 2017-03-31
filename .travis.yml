@@ -5,10 +5,16 @@ node_js:
   - '4'
   - '5'
   - '6'
-install: travis_wait 50 npm install
+install: npm install
 script: npm test
 sudo: required
 osx_image: xcode8
 os:
   - linux
   - osx
+before_script:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then wget https://s3-us-west-2.amazonaws.com/opencollada-pr-artifacts/opencollada_OCPR-500_OCTESTSPR-_openCOLLADA-mac-pull-request_build_376.zip -O /tmp/OpenCollada.zip ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://s3-us-west-2.amazonaws.com/opencollada-pr-artifacts/opencollada_OCPR-505_OCTESTSPR-15_openCOLLADA-ubuntu-pull-request_build_266.zip -O /tmp/OpenCollada.zip ; fi
+  - unzip /tmp/OpenCollada.zip
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export PATH=$PATH:$PWD/Release/bin ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export PATH=$PATH:$PWD/bin ; fi
