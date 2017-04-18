@@ -12,9 +12,19 @@ osx_image: xcode8
 os:
   - linux
   - osx
+addons:
+  apt:
+    sources:
+    # add PPAs with more up-to-date toolchains
+    - ubuntu-toolchain-r-test
+    packages:
+    # install toolchains
+    - gcc-5.3.0
+    - g++-5
 before_script:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then wget https://s3-us-west-2.amazonaws.com/opencollada-pr-artifacts/opencollada_OCPR-500_OCTESTSPR-_openCOLLADA-mac-pull-request_build_376.zip -O /tmp/OpenCollada.zip ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://s3-us-west-2.amazonaws.com/opencollada-pr-artifacts/opencollada_OCPR-505_OCTESTSPR-15_openCOLLADA-ubuntu-pull-request_build_266.zip -O /tmp/OpenCollada.zip ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://s3-eu-west-1.amazonaws.com/open-collada-artifacts/temp/DAEValidator.zip -O /tmp/OpenCollada.zip ; fi
   - unzip /tmp/OpenCollada.zip
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export PATH=$PATH:$PWD/Release/bin ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then chmod +x $PWD/bin/DAEValidator; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export PATH=$PATH:$PWD/bin ; fi
